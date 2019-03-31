@@ -5,10 +5,15 @@ export const app = () => {
   // So this essentially the this.state of class based components. 'set' is the function called against state object/item
   const [results, setResults] = useState([])
   const [query, setQuery] = useState("Rails")
+  const [error, setError] = useState(null)
 
   const resultData = async () => {
-    const response = await axios.get(`http://hn.algolia.com/api/v1/search?query=${query}`);
-    setResults(response.data.hits)
+    try {
+      const response = await axios.get(`http://hn.algolia.com/api/v1/search?query=${query}`);
+      setResults(response.data.hits)
+    } catch (err) {
+      setError(err)
+    }
   }
 
   useEffect(() => {
@@ -21,10 +26,11 @@ export const app = () => {
   }
 
   return ( 
-    <div>
+    <div className="container">
+      <div className="ten columns">
       <form onSubmit={handleSubmit}>
-        <input type="text" value={query} onChange={event => setQuery(event.target.value)}/>
-        <button type="submit" onClick={resultData}>Search</button>
+        <input type="text" value={query} className="u-full-width" onChange={event => setQuery(event.target.value)}/>
+        <button type="submit" className="button button-primary" onClick={resultData}>Search</button>
         <ul>
           {results.map(result => (
             <li key={result.objectID}>
@@ -33,6 +39,8 @@ export const app = () => {
           ))}
         </ul>
       </form>
+      {error && <div>{error.message}</div>}
+      </div>
     </div>
   );
 }
