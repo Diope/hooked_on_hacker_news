@@ -16,3 +16,17 @@ code {
 li {
   list-style-type: none;
 }
+
+input[type="text"] {
+  border: none;
+  height: 80px;
+  font-size: 64px;
+  color: #505050;
+  padding: 0;
+}
+
+input[type="text"]:focus {
+  color: #505050;
+  border: none;
+  border-bottom: 1px solid #1C1C1C;
+}

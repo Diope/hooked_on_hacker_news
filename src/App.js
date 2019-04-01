@@ -25,23 +25,28 @@ export const app = () => {
     resultData();
   }
 
-  return ( 
+  return (
+  
     <div className="container">
       <div className="ten columns">
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={query} className="u-full-width" onChange={event => setQuery(event.target.value)}/>
-        <button type="submit" className="button button-primary" onClick={resultData}>Search</button>
-        <ul>
-          {results.map(result => (
-            <li key={result.objectID}>
-              <a href={result.url}>{result.title}</a>
-            </li>
-          ))}
-        </ul>
-      </form>
-      {error && <div>{error.message}</div>}
+        <form onSubmit={handleSubmit}>
+          <input type="text" value={query} className="u-full-width" onChange={event => setQuery(event.target.value)}/>
+          <button type="submit" className="button button-primary" onClick={resultData}>Search</button>
+        </form>
+          
+            <div>
+              <ul>
+                {results.map(result => (
+                  <li key={result.objectID}>
+                    <a href={result.url}>{result.title}</a>
+                  </li>
+                ))}
+              </ul>
+              {error && <div>{error.message}</div>}
+            </div>
       </div>
     </div>
+  
   );
 }
  
